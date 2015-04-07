@@ -1,0 +1,32 @@
+(setq backup-directory-alist
+      `(("." . ,(concat (file-name-as-directory "~/.emacs.d")
+            "backup")))
+      custom-file (concat (file-name-as-directory "~/.emacs.d")
+              "custom.el"))
+
+;(add-to-list 'load-path "~/wip/haskell-mode/")
+; (require 'haskell-mode-autoloads)
+;(add-to-list 'Info-default-directory-list "~/wip/haskell-mode/")
+
+(setq inhibit-startup-message t)
+
+
+(blink-cursor-mode -1)
+;(tool-bar-mode -1)
+(ido-mode t)
+
+
+;;;;;;;ensime for scala
+(require 'package)
+(add-to-list 'package-archives
+         '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+(global-set-key (kbd "C-w") 'backward-kill-word)
